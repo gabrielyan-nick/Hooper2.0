@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { CheckIn } from './checkIn.schema';
+import { Court } from 'src/court/schemas/court.schema';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -32,17 +33,17 @@ export class User {
     };
   };
 
-  // @Prop({
-  //   type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Court' }],
-  //   default: [],
-  // })
-  // favCourts: Court[];
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Court' }],
+    default: [],
+  })
+  favCourts: Court[];
 
-  // @Prop({
-  //   type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Court' }],
-  //   default: [],
-  // })
-  // addedCourts: Court[];
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Court' }],
+    default: [],
+  })
+  addedCourts: Court[];
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CheckIn' }],
