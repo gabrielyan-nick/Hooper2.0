@@ -6,6 +6,7 @@ import {
   EnumCourtSportClient,
 } from '../court.types';
 import { User } from 'src/user/schemas/user.schema';
+import { Chat } from '../chat/schemas/chat.schema';
 
 export type CourtDocument = HydratedDocument<Court>;
 
@@ -39,7 +40,7 @@ export class Court {
   hoopsCount: number;
 
   @Prop({ max: 200, default: '' })
-  addInfo: string;
+  description: string;
 
   @Prop({
     type: [String],
@@ -57,8 +58,7 @@ export class Court {
   @Prop({
     type: {
       type: String,
-      enum: ['Point'],
-      required: true,
+      default: 'Point',
     },
     coordinates: {
       type: [Number],
@@ -79,7 +79,7 @@ export class Court {
     ],
     default: [],
   })
-  players: {
+  onCourtPlayers: {
     _id: User;
     createdAt: Date;
   }[];
@@ -98,8 +98,8 @@ export class Court {
     createdAt: Date;
   }[];
 
-  //   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Chat' })
-  //   chatId: Chat;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Chat' })
+  chat: Chat;
 }
 
 export const CourtSchema = SchemaFactory.createForClass(Court);

@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { CheckIn } from './checkIn.schema';
+import { CheckIn } from '../../court/schemas/checkIn.schema';
 import { Court } from 'src/court/schemas/court.schema';
 
 export type UserDocument = HydratedDocument<User>;
@@ -10,7 +10,7 @@ export class User {
   @Prop({ required: true, min: 2, max: 20, unique: true })
   username: string;
 
-  @Prop({ required: true, unique: true, max: 50 })
+  @Prop({ required: true, unique: true })
   email: string;
 
   @Prop({ required: true, min: 6 })
@@ -27,7 +27,7 @@ export class User {
   })
   onCourt: {
     isOnCourt: boolean;
-    courtId: {
+    court: {
       type: mongoose.Schema.Types.ObjectId;
       ref: 'Court';
     };
