@@ -16,21 +16,26 @@ export class User {
   @Prop({ required: true, min: 6 })
   password: string;
 
+  @Prop({ default: '', unique: true })
+  googleId: string;
+
   @Prop({ default: '/assets/avatar.png' })
   avatar: string;
 
   @Prop({
+    type: {
+      isOnCourt: Boolean,
+      court: { type: mongoose.Schema.Types.ObjectId, ref: 'Court' },
+    },
     default: {
       isOnCourt: false,
-      courtId: null,
+      court: null,
     },
+    _id: false,
   })
   onCourt: {
     isOnCourt: boolean;
-    court: {
-      type: mongoose.Schema.Types.ObjectId;
-      ref: 'Court';
-    };
+    court: Court;
   };
 
   @Prop({
@@ -54,7 +59,15 @@ export class User {
   @Prop({ type: Map, of: String })
   socialLinks: Map<string, string>;
 
-  @Prop({ required: true })
+  @Prop({
+    type: {
+      label: String,
+      value: String,
+      coordinates: [Number],
+    },
+    required: true,
+    _id: false,
+  })
   city: {
     label: string;
     value: string;
