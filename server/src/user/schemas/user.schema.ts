@@ -3,6 +3,11 @@ import mongoose, { HydratedDocument } from 'mongoose';
 import { CheckIn } from '../../court/schemas/checkIn.schema';
 import { Court } from 'src/court/schemas/court.schema';
 
+export enum EnumUserRole {
+  ADMIN = 'admin',
+  USER = 'user',
+}
+
 export type UserDocument = HydratedDocument<User>;
 
 @Schema({ timestamps: true })
@@ -13,14 +18,17 @@ export class User {
   @Prop({ required: true, unique: true })
   email: string;
 
-  @Prop({ required: true, min: 6 })
+  @Prop({ required: true, min: 6, default: '' })
   password: string;
 
-  @Prop({ default: '', unique: true })
+  @Prop()
   googleId: string;
 
   @Prop({ default: '/assets/avatar.png' })
   avatar: string;
+
+  @Prop({ enum: EnumUserRole, default: EnumUserRole.USER })
+  role: EnumUserRole;
 
   @Prop({
     type: {
@@ -65,7 +73,6 @@ export class User {
       value: String,
       coordinates: [Number],
     },
-    required: true,
     _id: false,
   })
   city: {

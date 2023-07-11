@@ -25,4 +25,25 @@ export class AuthDto {
   city: { label: string; value: string };
 }
 
-export type LoginDto = Omit<AuthDto, 'username' | 'city'>;
+export class LoginDto {
+  @IsEmail()
+  email: string;
+
+  @MinLength(6, { message: 'Password must be at least 6 characters' })
+  @IsString()
+  password: string;
+}
+
+export class ForgotPassDto {
+  @IsEmail()
+  email: string;
+}
+
+export class ResetPassDto {
+  @MinLength(6, { message: 'Password must be at least 6 characters' })
+  @IsString()
+  password: string;
+
+  @IsString()
+  token: string;
+}
