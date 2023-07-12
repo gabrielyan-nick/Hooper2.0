@@ -1,3 +1,6 @@
+import { Types } from 'mongoose';
+import { Court } from './schemas/court.schema';
+
 export enum EnumCourtSport {
   BASKETBALL = 'basketball',
   FOOTBALL = 'football',
@@ -29,3 +32,31 @@ export enum EnumAllCover {
   NATURAL = 'natural',
   SYNTHETIC = 'synthetic',
 }
+
+export interface ICourt {
+  _id?: Types.ObjectId;
+  sport: EnumCourtSport;
+  name: string;
+  cover: EnumAllCover;
+  lighting: boolean;
+  hoopsCount: number;
+  description: string;
+  photos: string[];
+  geometry: {
+    type: string;
+    coordinates: number[];
+  };
+  onCourtPlayers?: {
+    _id: Types.ObjectId;
+    createdAt: Date;
+  }[];
+  checkinPlayers?: {
+    _id: Types.ObjectId;
+    createdAt: Date;
+  }[];
+  chat: Types.ObjectId;
+}
+
+export type TCourt = Court & {
+  _id: Types.ObjectId;
+};

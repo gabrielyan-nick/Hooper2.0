@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { EnumCourtSport } from 'src/court/court.types';
+import { EnumCourtSport, ICourt } from 'src/court/court.types';
 
 export interface IMarker {
   _id: Types.ObjectId;
@@ -13,6 +13,8 @@ export interface IMarker {
     onCourtPlayers: IOnCourtPlayer[];
   };
 }
+
+export type TMarkerCreate = Pick<ICourt, '_id' | 'geometry'>;
 
 export interface IOnCourtPlayer {
   _id: Types.ObjectId;

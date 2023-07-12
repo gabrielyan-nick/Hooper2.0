@@ -1,8 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Marker } from './schemas/marker.schema';
 import { Model } from 'mongoose';
-import { IMarker } from './marker.types';
+import { IMarker, TMarkerCreate } from './marker.types';
+import { EnumCourtSport } from 'src/court/court.types';
 
 @Injectable()
 export class MarkerService {
@@ -10,12 +15,21 @@ export class MarkerService {
 
   async getAllMarkers(): Promise<IMarker[]> {
     const markers: IMarker[] = await this.markerModel.find().populate({
-      path: 'properties.courtId',
-      select: 'players',
+      path: 'court',
+      select: 'onCourtPlayers sport',
     });
 
     if (!markers) throw new NotFoundException('Markers not found');
 
     return markers;
+  }
+
+  async createMarker({ _id, geometry }: TMarkerCreate): Promise<Marker> {
+    const newMarker = await this.markerModel.create({
+      court: _id,
+      geometry,
+    });
+
+    return newMarker;
   }
 }

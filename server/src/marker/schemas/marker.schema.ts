@@ -22,6 +22,7 @@ export class Marker {
       type: [Number],
       required: true,
     },
+    _id: false,
   })
   geometry: {
     type: string;

@@ -12,7 +12,6 @@ export class Chat {
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }],
-    required: true,
     default: [],
   })
   messages: Message[];

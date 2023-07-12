@@ -9,6 +9,7 @@ import { Marker, MarkerSchema } from './schemas/marker.schema';
     MongooseModule.forFeature([{ name: Marker.name, schema: MarkerSchema }]),
   ],
   exports: [
+    MarkerService,
     MongooseModule.forFeature([{ name: Marker.name, schema: MarkerSchema }]),
   ],
   controllers: [MarkerController],
