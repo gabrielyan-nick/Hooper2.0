@@ -73,28 +73,30 @@ export class Court {
   @Prop({
     type: [
       {
-        _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         createdAt: { type: Date, default: Date.now },
       },
     ],
     default: [],
+    _id: false,
   })
   onCourtPlayers: {
-    _id: User;
+    user: User;
     createdAt: Date;
   }[];
 
   @Prop({
     type: [
       {
-        _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         createdAt: { type: Date, default: Date.now },
       },
     ],
     default: [],
+    _id: false,
   })
   checkinPlayers: {
-    _id: User;
+    user: User;
     createdAt: Date;
   }[];
 

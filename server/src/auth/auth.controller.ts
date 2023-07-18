@@ -15,10 +15,15 @@ import { AuthDto, ForgotPassDto, LoginDto, ResetPassDto } from './dto/auth.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { AuthGuard } from '@nestjs/passport';
+import { CurrentUser } from 'src/user/decorators/user.decorator';
+import { UserService } from 'src/user/user.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private user: UserService,
+  ) {}
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
@@ -44,16 +49,22 @@ export class AuthController {
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
-  @Post('/forgot-password')
+  @Post('forgot-password')
   async forgotPassword(@Body() dto: ForgotPassDto) {
     return this.authService.forgotPassword(dto);
   }
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
-  @Post('/reset-password')
+  @Post('reset-password')
   async resetPassword(@Body() dto: ResetPassDto) {
     return this.authService.resetPassword(dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  async getProfile(@CurrentUser('_id') id: string) {
+    return this.user.findById(id);
   }
 
   @Get('google')

@@ -37,7 +37,6 @@ export class User {
     },
     default: {
       isOnCourt: false,
-      court: null,
     },
     _id: false,
   })

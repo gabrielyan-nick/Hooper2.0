@@ -6,7 +6,6 @@ import {
   IsEnum,
   IsBoolean,
   IsNumber,
-  IsArray,
   IsOptional,
   Min,
 } from 'class-validator';

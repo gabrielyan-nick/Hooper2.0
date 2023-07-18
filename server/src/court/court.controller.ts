@@ -13,6 +13,7 @@ import {
 import { CourtService } from './court.service';
 import { CourtDto, UpdateCourtDto } from './dto/court.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { CurrentUser } from 'src/user/decorators/user.decorator';
 
 @Controller('court')
 export class CourtController {
@@ -22,8 +23,8 @@ export class CourtController {
   @HttpCode(200)
   @UseGuards(JwtAuthGuard)
   @Post()
-  async createCourt(@Body() dto: CourtDto) {
-    return this.courtService.createCourt(dto);
+  async createCourt(@Body() dto: CourtDto, @CurrentUser('_id') userId: string) {
+    return this.courtService.createCourt(dto, userId);
   }
 
   @UsePipes(new ValidationPipe())
@@ -42,5 +43,25 @@ export class CourtController {
     @Body() dto: UpdateCourtDto,
   ) {
     return this.courtService.updateCourtInfo(courtId, dto);
+  }
+
+  @HttpCode(200)
+  @UseGuards(JwtAuthGuard)
+  @Post('/:courtId/checkin')
+  async checkIn(
+    @Param('courtId') courtId: string,
+    @CurrentUser('_id') userId: string,
+  ) {
+    return this.courtService.checkIn(courtId, userId);
+  }
+
+  @HttpCode(200)
+  @UseGuards(JwtAuthGuard)
+  @Post('/:courtId/checkout')
+  async checkOut(
+    @Param('courtId') courtId: string,
+    @CurrentUser('_id') userId: string,
+  ) {
+    return this.courtService.checkOut(courtId, userId);
   }
 }
