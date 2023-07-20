@@ -60,14 +60,12 @@ export class AuthService {
 
   async register(dto: AuthDto) {
     const existEmail = await this.userModel.findOne({ email: dto.email });
-    if (existEmail)
-      throw new BadRequestException('User with this email already exists');
+    if (existEmail) throw new BadRequestException('Email already exist');
 
     const existUsername = await this.userModel.findOne({
       username: dto.username,
     });
-    if (existUsername)
-      throw new BadRequestException('User with this username already exists');
+    if (existUsername) throw new BadRequestException('Username already exist');
 
     const hashPassword = await argon2.hash(dto.password);
     const coordinates = citiesCoords[dto.city.value];

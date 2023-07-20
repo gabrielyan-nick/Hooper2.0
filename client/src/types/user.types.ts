@@ -29,7 +29,7 @@ export interface ITokens {
 
 export interface IInitialState {
   user: IUser | null;
-  isLoading: boolean;
+  // isLoading: boolean;
 }
 
 export interface IEmailPassword {

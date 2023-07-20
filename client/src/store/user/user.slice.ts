@@ -6,7 +6,7 @@ import { getLocalStorage } from "@/utils/local-storage";
 
 const initialState: IInitialState = {
   user: getLocalStorage("user"),
-  isLoading: false,
+  // isLoading: false,
 };
 
 export const userSlice = createSlice({
@@ -16,7 +16,7 @@ export const userSlice = createSlice({
     logout: (state) => {
       StorageService.removeFromStorage();
       state.user = null;
-      state.isLoading = false;
+      // state.isLoading = false;
     },
   },
   extraReducers: (builder) => {

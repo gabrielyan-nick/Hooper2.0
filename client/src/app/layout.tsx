@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import "./globals.scss";
 import "mapbox-gl/dist/mapbox-gl.css";
 import GeneralProvider from "@/components/generalProvider/GeneralProvider";
-import { useState } from "react";
+import UserLoginWidget from "@/components/userLoginWidget/UserLoginWidget";
 
 export const metadata: Metadata = {
   title: "Hooper",
@@ -17,12 +17,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // const [isLoadingScreen, setIsLoadingScreen] = useState(true);
-
   return (
     <html lang="ua">
       <body className="w-screen h-screen relative">
         <GeneralProvider>
+          <UserLoginWidget />
           <MainMap />
           {children}
         </GeneralProvider>

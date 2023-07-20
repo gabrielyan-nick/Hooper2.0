@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&family=Play:wght@400;700&display=swap");
+
+@font-face {
+  font-family: "Berlin Sans FB";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Berlin Sans FB"),
+    url("/client/public/fonts/BRLNSR.woff") format("woff");
+}
+
+body {
+  font-family: "Golos Text", sans-serif;
+}
+
+.header-btn {
+  @apply flex justify-center items-center h-[29px] w-[29px] rounded-md transition-all shadow-inOutFull disabled:opacity-50 active:scale-95;
+}
+
+.loading-hide-exit {
+  transform: translateX(0);
+  transition: transform 1700ms;
+}
+.loading-hide-exit-active {
+  transform: translateX(-150%);
+  transition: transform 1700ms;
+}

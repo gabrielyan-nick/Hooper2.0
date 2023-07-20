@@ -1,29 +1,23 @@
 import React, { forwardRef, useEffect, useRef, memo } from "react";
-// import { BtnSpinnerWrapper, LoadingScreenWrapper } from "./microComponets";
 import { BasketballMarker, FootballMarker } from "../ui/markers";
 import { HooperLogoIcon } from "../ui/icons";
 
-// const balls = [<BasketballMarker />, <FootballMarker />];
+// eslint-disable-next-line react/jsx-key
+const balls = [<BasketballMarker />, <FootballMarker />];
 
-const LoadingScreen = () => {
+const LoadingScreen = forwardRef<HTMLDivElement>((props, ref) => {
   return (
-    <div className="fixed z-30 w-screen h-screen flex flex-col justify-center items-center gap-10 bg-loadingScreen dark:bg-darkLoadingScreen">
-      <HooperLogoIcon className="animate-fadeIn" />
+    <div
+      ref={ref}
+      className="fixed z-30 w-screen h-screen flex flex-col justify-center items-center gap-3 bg-loadingScreen dark:bg-darkLoadingScreen"
+    >
+      <HooperLogoIcon className="animate-fadeInSlow ml-5" />
+      <div className="animate-slowSpin">
+        {balls[Math.floor(Math.random() * 2)]}
+      </div>
     </div>
-
-    // <div
-    //   style={{
-    //     marginLeft: "25px",
-    //     opacity: 0,
-    //     transition: "opacity .7s",
-    //   }}
-    //   ref={logoRef}
-    // >
-    //   <HooperLogoIcon main={theme.logo.main} net={theme.logo.net} />
-    // </div>
-    // <BtnSpinnerWrapper style={{ animationDuration: "1.5s" }}>
-    //   {balls[Math.floor(Math.random() * 2)]}
-    // </BtnSpinnerWrapper>
   );
-};
+});
+
+LoadingScreen.displayName = "LoadingScreen";
 export default LoadingScreen;
